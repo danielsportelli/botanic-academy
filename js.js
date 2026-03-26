@@ -59,7 +59,7 @@ const CALENDARI = {
   corso3: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Mun 7 Luglio'],['Lez. 2','Gio 9 Luglio'],
+      ['Lez. 1','Mar 7 Luglio'],['Lez. 2','Gio 9 Luglio'],
       ['Lez. 3','Mar 14 Luglio'],['Lez. 4','Gio 16 Luglio'],
       ['Lez. 5','Mar 21 Luglio'],['Lez. 6','Gio 23 Luglio'],
       ['Lez. 7','Mar 28 Luglio'],['Lez. 8','Gio 30 Luglio'],
