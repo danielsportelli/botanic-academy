@@ -304,7 +304,7 @@ section{padding:6rem 3rem;}
 
 /* ── CHATBOT ── */
 .chatbot-inner{max-width:860px;margin:0 auto;}
-.chatbot-subtitle{color:var(--cream-mid);font-size:.92rem;line-height:1.7;margin:.8rem 0 2.5rem;max-width:520px;}
+.chatbot-subtitle{color:var(--cream-mid);font-size:.92rem;line-height:1.7;margin:.8rem 0 2.5rem;max-width:700px;}
 .chat-window{background:rgba(196,163,90,.02);border:1px solid rgba(196,163,90,.13);overflow:hidden;}
 .chat-header{
   background:rgba(30,92,88,.35);border-bottom:1px solid rgba(196,163,90,.1);
