@@ -18,8 +18,14 @@ document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('dragstart', e => e.preventDefault());
 
 // ── Nav mobile ──
-function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+  document.querySelector('nav').classList.toggle('nav-open');
+}
+function closeNav() {
+  document.getElementById('navLinks').classList.remove('open');
+  document.querySelector('nav').classList.remove('nav-open');
+}
 
 // ── Scroll reveal ──
 const obs = new IntersectionObserver(entries => {

@@ -461,7 +461,8 @@ footer{
   .nav-links.open{display:flex;}
   .nav-links a{font-size:1rem;letter-spacing:.2em;color:var(--cream);}
   .nav-links a:hover{color:var(--gold);}
-  .nav-toggle{display:block;z-index:101;}
+  .nav-toggle{display:block;z-index:200;position:relative;}
+  nav.nav-open .nav-logo{visibility:hidden;}
   section{padding:4rem 1.5rem;}
   .stats-bar{grid-template-columns:repeat(2,1fr);padding:1.5rem;gap:0;}
   .stat-item{border:none;padding:.8rem;}
