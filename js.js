@@ -131,22 +131,71 @@ function clearErr(id) {
   const el = document.getElementById(id);
   if (el) el.addEventListener('input', () => clearErr(id));
 });
-function submitForm() {
+async function submitForm() {
   let valid = true;
   const name = document.getElementById('fname').value.trim();
   const email = document.getElementById('femail').value.trim();
   const phone = document.getElementById('fphone').value.trim();
+  const corso = document.getElementById('fcorso') ? document.getElementById('fcorso').value : '';
   const msg = document.getElementById('fmessage').value.trim();
   if (!name) { showError('fname', 'Il nome è obbligatorio'); valid = false; }
   if (!email || !email.includes('@')) { showError('femail', 'Inserisci un indirizzo email valido'); valid = false; }
   if (!phone) { showError('fphone', 'Il numero di telefono è obbligatorio'); valid = false; }
   if (!msg) { showError('fmessage', 'Il messaggio è obbligatorio'); valid = false; }
   if (!valid) return;
-  openPopup();
-  document.getElementById('fname').value = '';
-  document.getElementById('femail').value = '';
-  document.getElementById('fphone').value = '';
-  document.getElementById('fmessage').value = '';
+
+  const btn = document.querySelector('.form-submit');
+  if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso...'; }
+
+  const templateParams = {
+    from_name: name,
+    from_email: email,
+    phone: phone,
+    corso: corso,
+    message: msg,
+    reply_to: email
+  };
+
+  try {
+    // 1. Manda mail di notifica a te
+    await emailjs.send('service_9ng26ch', 'template_0kfjauv', templateParams, 'KE_Ia3bkUgnIJah4n');
+
+    // 2. Manda mail di conferma all'utente
+    await emailjs.send('service_9ng26ch', 'template_jhabtnq', templateParams, 'KE_Ia3bkUgnIJah4n');
+
+    // 3. Crea contatto su Systeme.io
+    try {
+      await fetch('https://api.systeme.io/api/contacts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': '9ivkdub27t5rpkw4erpp1uhhcj4bf3oo7d75kn6vrf7e8jpjka26e19by6dzs8n3'
+        },
+        body: JSON.stringify({
+          email: email,
+          firstName: name.split(' ')[0],
+          lastName: name.split(' ').slice(1).join(' ') || '',
+          fields: [{ slug: 'phone_number', value: phone }],
+          tags: [{ name: 'Form - da zero a barman in 30 ore' }]
+        })
+      });
+    } catch(e) {
+      console.warn('Systeme.io non raggiunto:', e);
+    }
+
+    // 4. Mostra popup e svuota form
+    openPopup();
+    document.getElementById('fname').value = '';
+    document.getElementById('femail').value = '';
+    document.getElementById('fphone').value = '';
+    document.getElementById('fmessage').value = '';
+
+  } catch(err) {
+    console.error('Errore invio:', err);
+    alert('Errore durante l\'invio. Riprova o scrivici direttamente a info@botanicacademy.it');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = 'Invia Messaggio'; }
+  }
 }
 
 // ── Chatbot FAQ ──
