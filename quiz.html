@@ -488,6 +488,68 @@ body::before {
 .btn-share:hover { border-color: var(--gold); color: var(--cream); }
 .share-icon { font-size: .9rem; }
 
+/* ── OPEN IN BROWSER OVERLAY ── */
+#open-browser-overlay { position: fixed; inset: 0; z-index: 999; }
+.obb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.6); }
+.obb-sheet {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #1a2420;
+  border: 1px solid rgba(196,163,90,.2);
+  border-radius: 12px 12px 0 0;
+  padding: 1.2rem 1.5rem 2.5rem;
+  display: flex; flex-direction: column; gap: .8rem;
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.obb-handle {
+  width: 36px; height: 4px; border-radius: 2px;
+  background: rgba(196,163,90,.3);
+  margin: 0 auto .4rem;
+}
+.obb-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 300;
+  color: var(--white); text-align: center;
+}
+.obb-desc {
+  font-size: .82rem; color: var(--cream-mid);
+  line-height: 1.6; text-align: center;
+}
+.obb-url {
+  font-size: .72rem; color: var(--gold-dim);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(196,163,90,.15);
+  border-radius: 3px;
+  padding: .6rem .9rem;
+  word-break: break-all;
+  text-align: center;
+}
+.obb-copy {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  padding: .85rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .15em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+  transition: background .2s;
+}
+.obb-copy:hover { background: var(--gold-light); }
+.obb-cancel {
+  background: transparent;
+  border: 1px solid rgba(196,163,90,.2);
+  color: var(--cream-dim);
+  padding: .75rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .68rem; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase;
+  cursor: pointer; border-radius: 2px;
+}
+
 /* ── HIDDEN ── */
 .hidden { display: none !important; }
 
@@ -847,20 +909,52 @@ function shareQuiz() {
   const quizUrl = 'https://danielsportelli.github.io/botanic-academy/quiz.html';
   const text = `Ho appena fatto il Test Barman di Botanic Academy e ho ottenuto ${score}/100! 🍹 Quanto ne sai tu sul mondo del bartending? Fallo anche tu →`;
 
+  // Detect Instagram / Facebook in-app browser
+  const ua = navigator.userAgent || '';
+  const isInAppBrowser = /Instagram|FBAN|FBAV|FB_IAB/i.test(ua);
+
+  if (isInAppBrowser) {
+    // Mostra overlay con istruzioni per aprire nel browser esterno
+    showOpenInBrowserOverlay(quizUrl);
+    return;
+  }
+
   if (navigator.share) {
     navigator.share({
       title: 'Test Barman — Botanic Academy',
       text: text,
       url: quizUrl
-    }).catch(() => {
-      // utente ha annullato o errore — non fare nulla
-    });
+    }).catch(() => {});
     return;
   }
 
-  // Fallback per browser che non supportano Web Share API (es. desktop)
-  // Apre WhatsApp web con testo precompilato
+  // Fallback desktop
   window.open('https://wa.me/?text=' + encodeURIComponent(text + ' ' + quizUrl), '_blank');
+}
+
+function showOpenInBrowserOverlay(url) {
+  const existing = document.getElementById('open-browser-overlay');
+  if (existing) { existing.remove(); }
+
+  const overlay = document.createElement('div');
+  overlay.id = 'open-browser-overlay';
+  overlay.innerHTML = `
+    <div class="obb-backdrop" onclick="document.getElementById('open-browser-overlay').remove()"></div>
+    <div class="obb-sheet">
+      <div class="obb-handle"></div>
+      <div class="obb-title">Apri nel browser</div>
+      <div class="obb-desc">Per condividere con tutte le app, apri il quiz nel browser del tuo telefono.</div>
+      <div class="obb-url">${url}</div>
+      <button class="obb-copy" onclick="
+        navigator.clipboard.writeText('${url}').then(() => {
+          this.textContent = '✓ Link copiato!';
+          setTimeout(() => document.getElementById('open-browser-overlay').remove(), 1500);
+        });
+      ">Copia il link</button>
+      <button class="obb-cancel" onclick="document.getElementById('open-browser-overlay').remove()">Annulla</button>
+    </div>
+  `;
+  document.body.appendChild(overlay);
 }
 
 function retryQuiz() {
