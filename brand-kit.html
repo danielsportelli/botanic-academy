@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Botanic Academy — Brand Identity Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:      #080c0b;
+  --dark:       #0f1510;
+  --teal:       #1e5c58;
+  --teal-mid:   #2a7a75;
+  --teal-light: #3a9e97;
+  --gold:       #c4a35a;
+  --gold-light: #dfc07e;
+  --gold-dim:   #8a7040;
+  --cream:      #f4efe4;
+  --cream-mid:  #d6cdb8;
+  --cream-dim:  #9c9282;
+  --white:      #faf8f3;
+  --section-light: #f0ebe0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--dark);
+  color: var(--cream);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+header {
+  padding: 5rem 4rem 4rem;
+  border-bottom: 1px solid rgba(196,163,90,.15);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.brand-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+.brand-name em { color: var(--gold); font-style: italic; }
+.brand-tagline {
+  font-size: .65rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-top: .8rem;
+}
+.kit-label {
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: right;
+}
+.kit-label span { display: block; font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 300; color: var(--cream-dim); letter-spacing: .05em; margin-top: .3rem; text-transform: none; }
+
+/* ── SECTIONS ── */
+section { padding: 5rem 4rem; border-bottom: 1px solid rgba(196,163,90,.08); }
+.section-label {
+  font-size: .58rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: rgba(196,163,90,.2); }
+
+/* ── PALETTE ── */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5rem;
+}
+.swatch {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+}
+.swatch-color {
+  height: 100px;
+  width: 100%;
+}
+.swatch-info {
+  padding: .8rem 1rem;
+  background: rgba(255,255,255,.03);
+}
+.swatch-name {
+  font-size: .65rem;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  margin-bottom: .3rem;
+}
+.swatch-hex {
+  font-size: .9rem;
+  color: var(--cream);
+  font-weight: 400;
+}
+.swatch-var {
+  font-size: .58rem;
+  color: var(--gold-dim);
+  margin-top: .2rem;
+  font-family: monospace;
+}
+
+/* ── TIPOGRAFIA ── */
+.type-samples { display: flex; flex-direction: column; gap: 3rem; }
+.type-sample { border-left: 2px solid rgba(196,163,90,.2); padding-left: 2rem; }
+.type-meta {
+  font-size: .58rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 1rem;
+}
+.type-display {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.05;
+}
+.type-body-sample {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--cream-mid);
+  line-height: 1.75;
+}
+.type-eyebrow-sample {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .65rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.type-specs {
+  margin-top: .8rem;
+  font-size: .6rem;
+  color: var(--cream-dim);
+  letter-spacing: .05em;
+}
+
+/* ── LOGO ── */
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.logo-card {
+  padding: 3rem 2rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  border: 1px solid rgba(196,163,90,.1);
+}
+.logo-card.dark { background: var(--black); }
+.logo-card.light { background: var(--section-light); }
+.logo-card.teal { background: var(--teal); }
+.logo-wordmark {
+  font-family: 'Playfair Display', serif;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1;
+}
+.logo-wordmark .main { font-size: 2.2rem; display: block; }
+.logo-wordmark .sub { font-size: .55rem; letter-spacing: .5em; text-transform: uppercase; margin-top: .4rem; display: block; }
+.logo-card.dark .logo-wordmark .main { color: var(--white); }
+.logo-card.dark .logo-wordmark .sub { color: var(--gold); }
+.logo-card.light .logo-wordmark .main { color: var(--dark); }
+.logo-card.light .logo-wordmark .sub { color: var(--teal); }
+.logo-card.teal .logo-wordmark .main { color: var(--white); }
+.logo-card.teal .logo-wordmark .sub { color: var(--gold-light); }
+.logo-badge {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: .75rem;
+  font-weight: 300;
+  text-align: center;
+  line-height: 1.2;
+  letter-spacing: .05em;
+}
+.logo-card.dark .logo-badge { color: var(--cream-mid); }
+.logo-card.light .logo-badge { color: var(--teal); }
+.logo-card.teal .logo-badge { color: rgba(255,255,255,.7); }
+.logo-variant-label { font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim); }
+
+/* ── BUTTONS ── */
+.button-grid { display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: center; }
+.btn-primary {
+  background: var(--gold);
+  color: var(--black);
+  border: none;
+  padding: .9rem 2.2rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--cream);
+  border: 1px solid rgba(196,163,90,.4);
+  padding: .9rem 2.2rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 400;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-teal {
+  background: var(--teal);
+  color: var(--white);
+  border: none;
+  padding: .9rem 2.2rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.btn-label { font-size: .55rem; letter-spacing: .15em; text-transform: uppercase; color: var(--cream-dim); margin-top: .5rem; text-align: center; }
+.btn-wrap { display: flex; flex-direction: column; align-items: center; }
+
+/* ── SPACING ── */
+.spacing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; }
+.spacing-item { display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+.spacing-bar { background: var(--teal); border-radius: 2px; width: 100%; }
+.spacing-info { font-size: .58rem; letter-spacing: .1em; color: var(--cream-dim); }
+.spacing-value { font-size: .8rem; color: var(--cream); }
+
+/* ── USAGE RULES ── */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.rule-card {
+  padding: 2rem;
+  border-radius: 4px;
+  border: 1px solid rgba(196,163,90,.1);
+  background: rgba(255,255,255,.02);
+}
+.rule-card.do { border-color: rgba(58,158,151,.3); }
+.rule-card.dont { border-color: rgba(200,80,80,.2); }
+.rule-tag {
+  font-size: .55rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+.rule-card.do .rule-tag { color: var(--teal-light); }
+.rule-card.dont .rule-tag { color: rgba(200,80,80,.8); }
+.rule-text { font-size: .85rem; color: var(--cream-mid); line-height: 1.7; }
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: .5;
+}
+.footer-text { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--cream-dim); }
+
+@media(max-width:768px) {
+  header, section { padding: 3rem 1.5rem; }
+  .logo-grid { grid-template-columns: 1fr; }
+  .rules-grid { grid-template-columns: 1fr; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div>
+    <div class="brand-name">Botanic<br><em>Academy</em></div>
+    <div class="brand-tagline">Da Zero a Barman in 30 Ore · Arcene (BG)</div>
+  </div>
+  <div class="kit-label">
+    Brand Identity Kit
+    <span>Versione 1.0 · 2025</span>
+  </div>
+</header>
+
+<!-- PALETTE -->
+<section>
+  <div class="section-label">01 — Palette Colori</div>
+  <div class="palette-grid">
+    <div class="swatch">
+      <div class="swatch-color" style="background:#c4a35a;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#C4A35A</div>
+        <div class="swatch-var">--gold</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#dfc07e;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold Light</div>
+        <div class="swatch-hex">#DFC07E</div>
+        <div class="swatch-var">--gold-light</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8a7040;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold Dim</div>
+        <div class="swatch-hex">#8A7040</div>
+        <div class="swatch-var">--gold-dim</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#1e5c58;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Teal</div>
+        <div class="swatch-hex">#1E5C58</div>
+        <div class="swatch-var">--teal</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2a7a75;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Teal Mid</div>
+        <div class="swatch-hex">#2A7A75</div>
+        <div class="swatch-var">--teal-mid</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#3a9e97;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Teal Light</div>
+        <div class="swatch-hex">#3A9E97</div>
+        <div class="swatch-var">--teal-light</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#080c0b;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Black</div>
+        <div class="swatch-hex">#080C0B</div>
+        <div class="swatch-var">--black</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#0f1510;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Dark</div>
+        <div class="swatch-hex">#0F1510</div>
+        <div class="swatch-var">--dark</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f4efe4; border-top: 1px solid #ddd;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream</div>
+        <div class="swatch-hex">#F4EFE4</div>
+        <div class="swatch-var">--cream</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#d6cdb8;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream Mid</div>
+        <div class="swatch-hex">#D6CDB8</div>
+        <div class="swatch-var">--cream-mid</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#9c9282;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream Dim</div>
+        <div class="swatch-hex">#9C9282</div>
+        <div class="swatch-var">--cream-dim</div>
+      </div>
+    </div>
+    <div class="swatch">
+      <div class="swatch-color" style="background:#f0ebe0; border-top: 1px solid #ddd;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Section Light</div>
+        <div class="swatch-hex">#F0EBE0</div>
+        <div class="swatch-var">--section-light</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPOGRAFIA -->
+<section>
+  <div class="section-label">02 — Tipografia</div>
+  <div class="type-samples">
+
+    <div class="type-sample">
+      <div class="type-meta">Display / Titoli · Playfair Display · Weight 300</div>
+      <div class="type-display" style="font-size: clamp(2.5rem, 6vw, 5rem);">Da Zero a<br><em style="color:var(--gold);">Barman</em><br>in 30 Ore</div>
+      <div class="type-specs">Playfair Display · 300 · line-height 1.05 · uso: titoli hero, sezioni principali</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">Heading · Playfair Display · Weight 300</div>
+      <div class="type-display" style="font-size: clamp(1.8rem, 3.5vw, 2.8rem);">Un metodo <em style="color:var(--gold);">concreto</em><br>per chi parte da zero</div>
+      <div class="type-specs">Playfair Display · 300 · line-height 1.08 · uso: titoli di sezione</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">Eyebrow · Plus Jakarta Sans · Weight 400 · Uppercase</div>
+      <div class="type-eyebrow-sample">Il Corso · Botanic Academy</div>
+      <div class="type-specs">Plus Jakarta Sans · 400 · 0.62rem · letter-spacing 0.4em · UPPERCASE · uso: etichette sezione</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">Body · Plus Jakarta Sans · Weight 300</div>
+      <div class="type-body-sample" style="max-width: 600px;">Ha lavorato in cocktail bar, ristoranti stellati, eventi di lusso, beach club, resort di montagna e all'estero. Dietro al bancone da oltre 10 anni, ha creato il metodo Botanic per trasmettere quello che si impara davvero solo facendo — non guardando.</div>
+      <div class="type-specs">Plus Jakarta Sans · 300 · 0.92–0.95rem · line-height 1.75–1.85 · uso: testi descrittivi</div>
+    </div>
+
+    <div class="type-sample">
+      <div class="type-meta">Button / Label · Plus Jakarta Sans · Weight 600 · Uppercase</div>
+      <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--cream);">Scopri le Prossime Date · Richiedi Informazioni</div>
+      <div class="type-specs">Plus Jakarta Sans · 600 · 0.72rem · letter-spacing 0.18em · UPPERCASE · uso: CTA, pulsanti</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOGO -->
+<section>
+  <div class="section-label">03 — Logo & Varianti</div>
+  <div class="logo-grid">
+    <div class="logo-card dark">
+      <div class="logo-badge">BO<br>TA<br>NIC</div>
+      <div class="logo-wordmark">
+        <span class="main" style="color:var(--white);">Botanic</span>
+        <span class="sub" style="color:var(--gold);">Academy</span>
+      </div>
+      <div class="logo-variant-label">Su sfondo scuro — Principale</div>
+    </div>
+    <div class="logo-card light">
+      <div class="logo-badge" style="border-color:var(--teal); color:var(--teal);">BO<br>TA<br>NIC</div>
+      <div class="logo-wordmark">
+        <span class="main" style="color:var(--dark);">Botanic</span>
+        <span class="sub" style="color:var(--teal);">Academy</span>
+      </div>
+      <div class="logo-variant-label" style="color:#666;">Su sfondo chiaro</div>
+    </div>
+    <div class="logo-card teal">
+      <div class="logo-badge" style="border-color:rgba(255,255,255,.5); color:rgba(255,255,255,.8);">BO<br>TA<br>NIC</div>
+      <div class="logo-wordmark">
+        <span class="main" style="color:var(--white);">Botanic</span>
+        <span class="sub" style="color:var(--gold-light);">Academy</span>
+      </div>
+      <div class="logo-variant-label">Su sfondo teal</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTONI -->
+<section>
+  <div class="section-label">04 — Bottoni & CTA</div>
+  <div class="button-grid">
+    <div class="btn-wrap">
+      <button class="btn-primary">Scopri le Date</button>
+      <div class="btn-label">Primary — Gold</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-outline">Richiedi Info</button>
+      <div class="btn-label">Secondary — Outline</div>
+    </div>
+    <div class="btn-wrap">
+      <button class="btn-teal">Contattaci</button>
+      <div class="btn-label">Tertiary — Teal</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPAZIATURA -->
+<section>
+  <div class="section-label">05 — Spaziatura & Layout</div>
+  <div class="spacing-grid">
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:4px;"></div>
+      <div class="spacing-value">0.25rem</div>
+      <div class="spacing-info">4px · XS</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:8px;"></div>
+      <div class="spacing-value">0.5rem</div>
+      <div class="spacing-info">8px · SM</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:16px;"></div>
+      <div class="spacing-value">1rem</div>
+      <div class="spacing-info">16px · MD</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:24px;"></div>
+      <div class="spacing-value">1.5rem</div>
+      <div class="spacing-info">24px · LG</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:32px;"></div>
+      <div class="spacing-value">2rem</div>
+      <div class="spacing-info">32px · XL</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:48px;"></div>
+      <div class="spacing-value">3rem</div>
+      <div class="spacing-info">48px · 2XL</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:64px;"></div>
+      <div class="spacing-value">4rem</div>
+      <div class="spacing-info">64px · 3XL · Padding sezioni</div>
+    </div>
+    <div class="spacing-item">
+      <div class="spacing-bar" style="height:96px;"></div>
+      <div class="spacing-value">6rem</div>
+      <div class="spacing-info">96px · 4XL · Hero padding</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 2.5rem; padding: 1.5rem; border: 1px solid rgba(196,163,90,.1); border-radius: 4px; background: rgba(255,255,255,.02);">
+    <div style="font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:1rem;">Breakpoints</div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap:1rem;">
+      <div style="font-size:.8rem; color:var(--cream-mid);"><span style="color:var(--cream);">520px</span> — Mobile piccolo</div>
+      <div style="font-size:.8rem; color:var(--cream-mid);"><span style="color:var(--cream);">900px</span> — Tablet / Mobile menu</div>
+      <div style="font-size:.8rem; color:var(--cream-mid);"><span style="color:var(--cream);">1100px</span> — Desktop medio</div>
+      <div style="font-size:.8rem; color:var(--cream-mid);"><span style="color:var(--cream);">1200px</span> — Max width contenuto</div>
+    </div>
+  </div>
+</section>
+
+<!-- REGOLE D'USO -->
+<section>
+  <div class="section-label">06 — Regole d'Uso</div>
+  <div class="rules-grid">
+    <div class="rule-card do">
+      <div class="rule-tag">✓ Da fare</div>
+      <div class="rule-text">
+        Usa il gold come colore di accento principale su sfondi scuri.<br><br>
+        Mantieni sempre ampi spazi bianchi tra gli elementi per respirare.<br><br>
+        Usa Playfair Display solo per titoli e numeri grandi.<br><br>
+        Combina testo cream su sfondo scuro per il massimo contrasto.<br><br>
+        Usa UPPERCASE con letter-spacing generoso per etichette e CTA.
+      </div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-tag">✗ Da evitare</div>
+      <div class="rule-text">
+        Non usare il gold come colore di sfondo principale.<br><br>
+        Non usare Playfair Display per testi lunghi o body copy.<br><br>
+        Non affiancare gold e teal senza uno sfondo neutro tra loro.<br><br>
+        Non usare pesi bold (700+) con Playfair Display.<br><br>
+        Non ridurre la spaziatura tra elementi — il respiro è parte del brand.
+      </div>
+    </div>
+    <div class="rule-card do">
+      <div class="rule-tag">✓ Tono di voce</div>
+      <div class="rule-text">
+        Diretto e professionale, mai formale o freddo.<br><br>
+        Concreto: parla di risultati reali, non di promesse vaghe.<br><br>
+        Caldo ma competente: come un professionista che ti vuole bene.<br><br>
+        Frasi brevi. Niente markdown o asterischi nella comunicazione.
+      </div>
+    </div>
+    <div class="rule-card dont">
+      <div class="rule-tag">✗ Comunicazione da evitare</div>
+      <div class="rule-text">
+        Niente superlativi gratuiti ("il migliore corso in assoluto").<br><br>
+        Evita il linguaggio tecnico del marketing ("synergy", "disruptive").<br><br>
+        Non usare esclamativi eccessivi o emoji nella comunicazione ufficiale.<br><br>
+        Non essere vago: ogni affermazione deve avere un dato o esempio concreto.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">Botanic Academy · Brand Identity Kit v1.0</div>
+  <div class="footer-text">Uso interno riservato · 2025</div>
+</footer>
+
+</body>
+</html>
