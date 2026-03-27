@@ -25,8 +25,17 @@ function toggleNav() {
   nav.classList.toggle('nav-open');
   if (isOpen) {
     document.body.appendChild(menu);
+    const closeBtn = document.createElement('button');
+    closeBtn.id = 'navCloseBtn';
+    closeBtn.innerHTML = '✕';
+    closeBtn.setAttribute('aria-label', 'Chiudi menu');
+    closeBtn.style.cssText = 'position:fixed;top:1.2rem;right:1.5rem;z-index:10001;background:none;border:none;color:var(--cream);font-size:1.4rem;cursor:pointer;padding:8px;';
+    closeBtn.onclick = closeNav;
+    document.body.appendChild(closeBtn);
   } else {
     nav.appendChild(menu);
+    const closeBtn = document.getElementById('navCloseBtn');
+    if (closeBtn) closeBtn.remove();
   }
 }
 function closeNav() {
@@ -34,9 +43,9 @@ function closeNav() {
   const nav = document.querySelector('nav');
   menu.classList.remove('open');
   nav.classList.remove('nav-open');
-  if (menu.parentElement === document.body) {
-    nav.appendChild(menu);
-  }
+  if (menu.parentElement === document.body) nav.appendChild(menu);
+  const closeBtn = document.getElementById('navCloseBtn');
+  if (closeBtn) closeBtn.remove();
 }
 
 // ── Scroll reveal ──
