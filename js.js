@@ -19,12 +19,24 @@ document.addEventListener('dragstart', e => e.preventDefault());
 
 // ── Nav mobile ──
 function toggleNav() {
-  document.getElementById('navLinks').classList.toggle('open');
-  document.querySelector('nav').classList.toggle('nav-open');
+  const menu = document.getElementById('navLinks');
+  const nav = document.querySelector('nav');
+  const isOpen = menu.classList.toggle('open');
+  nav.classList.toggle('nav-open');
+  if (isOpen) {
+    document.body.appendChild(menu);
+  } else {
+    nav.appendChild(menu);
+  }
 }
 function closeNav() {
-  document.getElementById('navLinks').classList.remove('open');
-  document.querySelector('nav').classList.remove('nav-open');
+  const menu = document.getElementById('navLinks');
+  const nav = document.querySelector('nav');
+  menu.classList.remove('open');
+  nav.classList.remove('nav-open');
+  if (menu.parentElement === document.body) {
+    nav.appendChild(menu);
+  }
 }
 
 // ── Scroll reveal ──
