@@ -105,6 +105,16 @@ body::before {
   overflow: hidden;
 }
 
+@media (min-width: 521px) {
+  .quiz-card {
+    overflow: visible;
+    height: auto;
+  }
+  .quiz-card > * {
+    overflow: visible;
+  }
+}
+
 /* ── PROGRESS BAR ── */
 .progress-wrap {
   padding: 1.6rem 2.2rem .8rem;
@@ -907,7 +917,7 @@ function showResult() {
 
 function shareQuiz() {
   const quizUrl = 'https://danielsportelli.github.io/botanic-academy/quiz.html';
-  const text = `Ho appena fatto il Test Barman di Botanic Academy e ho ottenuto ${score}/100! Quanto ne sai tu sul mondo del bartending? Fallo anche tu →`;
+  const text = `Ho appena fatto il Test Barman di Botanic Academy e ho ottenuto ${score}/100! 🍹 Quanto ne sai tu sul mondo del bartending? Fallo anche tu →`;
 
   // Detect Instagram / Facebook in-app browser
   const ua = navigator.userAgent || '';
