@@ -446,11 +446,11 @@ footer{
   .stats-bar::before,.stats-bar::after{display:none !important;}
   .stats-bar .stat-divider{display:none !important;visibility:hidden !important;width:0 !important;height:0 !important;position:static !important;background:none !important;}
   nav{padding:.9rem 1.5rem;}
-  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,12,11,.98);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:99;}
+  .nav-links{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(8,12,11,.98);flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;z-index:9999;}
   .nav-links.open{display:flex;}
   .nav-links a{font-size:1rem;letter-spacing:.2em;color:var(--cream);}
   .nav-links a:hover{color:var(--gold);}
-  .nav-toggle{display:block;z-index:101;}
+  .nav-toggle{display:block;z-index:10000;position:relative;}
   section{padding:4rem 1.5rem;}
   .stats-bar{grid-template-columns:repeat(2,1fr);padding:1.5rem;gap:0;}
   .stat-item:not(:last-child)::after{display:none;}
