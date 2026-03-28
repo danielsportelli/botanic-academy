@@ -144,7 +144,7 @@ async function submitForm() {
   if (!msg) { showError('fmessage', 'Il messaggio è obbligatorio'); valid = false; }
   if (!valid) return;
 
-  const btn = document.querySelector('.form-submit');
+  const btn = document.querySelector('.form-submit button');
   if (btn) { btn.disabled = true; btn.textContent = 'Invio in corso...'; }
 
   const templateParams = {
