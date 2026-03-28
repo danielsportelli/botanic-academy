@@ -194,7 +194,7 @@ async function submitForm() {
     console.error('Errore invio:', err);
     alert('Errore durante l\'invio. Riprova o scrivici direttamente a info@botanicacademy.it');
   } finally {
-    if (btn) { btn.disabled = false; btn.textContent = 'Invia Messaggio'; }
+    if (btn) { btn.disabled = false; btn.textContent = 'Invia messaggio'; }
   }
 }
 
