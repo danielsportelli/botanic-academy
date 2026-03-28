@@ -136,7 +136,7 @@ async function submitForm() {
   const name = document.getElementById('fname').value.trim();
   const email = document.getElementById('femail').value.trim();
   const phone = document.getElementById('fphone').value.trim();
-  const corso = document.getElementById('fcorso') ? document.getElementById('fcorso').value : '';
+  const corso = document.getElementById('fcourse') ? document.getElementById('fcourse').value : '';
   const msg = document.getElementById('fmessage').value.trim();
   if (!name) { showError('fname', 'Il nome è obbligatorio'); valid = false; }
   if (!email || !email.includes('@')) { showError('femail', 'Inserisci un indirizzo email valido'); valid = false; }
