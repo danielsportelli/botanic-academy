@@ -895,19 +895,19 @@ function showResult() {
   }, 100);
 
   let title, desc;
-  if (score >= 90) {
-    title = 'Professionale.<br>Sei <em>già pronto</em>.';
-    desc = 'Dimostri una conoscenza solida e completa del bartending. Il corso Botanic ti darà la tecnica per portarla al livello successivo.';
-  } else if (score >= 65) {
-    title = 'Buona base.<br>Manca solo la <em>pratica</em>.';
-    desc = 'Conosci i fondamentali ma ci sono ancora zone grigie. Con il metodo Botanic trasformerai la teoria in vera competenza operativa.';
-  } else if (score >= 35) {
-    title = 'Sei sulla strada <em>giusta</em>.';
-    desc = 'Hai qualche nozione ma il mondo del bartending ha molto da offrirti. Il corso Botanic è il punto di partenza che fa davvero la differenza.';
-  } else {
-    title = 'Perfetto.<br>Puoi imparare <em>tutto</em>.';
-    desc = 'Parti da zero — esattamente il punto di partenza ideale. Il metodo Botanic è stato costruito per chi non ha mai toccato uno shaker.';
-  }
+if (score >= 81) {
+  title = 'Livello alto.<br>Ora fallo diventare <em>ufficiale</em>.';
+  desc = 'Hai le competenze — un attestato professionale le certifica e ti apre porte nuove.';
+} else if (score >= 61) {
+  title = 'Ci sei quasi.<br>Manca la <em>differenza</em>.';
+  desc = 'Conosci il mestiere, ma tra un buon barman e un professionista c\'è un gap preciso. Il corso Botanic lo chiude.';
+} else if (score >= 31) {
+  title = 'Buone basi.<br>Ma manca il <em>metodo</em>.';
+  desc = 'Hai intuito e qualche nozione, ma lavorare dietro al bancone richiede tecnica solida. Il corso Botanic trasforma quello che sai in competenza reale.';
+} else {
+  title = 'C\'è tutto da costruire.<br>E questo è il <em>momento giusto</em>.';
+  desc = 'Il metodo Botanic parte esattamente da qui — zero assunzioni, solo pratica vera dal primo giorno.';
+}
 
   document.getElementById('result-title').innerHTML = title;
   document.getElementById('result-desc').textContent = desc.replace(/<[^>]+>/g, '');
@@ -917,7 +917,7 @@ function showResult() {
 
 function shareQuiz() {
   const quizUrl = 'https://danielsportelli.github.io/botanic-academy/quiz.html';
-  const text = `Ho appena fatto il Test Barman di Botanic Academy e ho ottenuto ${score}/100! 🍹 Quanto ne sai tu sul mondo del bartending? Fallo anche tu →`;
+  const text = `Ho appena fatto il Test Barman di Botanic Academy e ho ottenuto ${score}/100! Quanto ne sai tu sul mondo del bartending? Fallo anche tu →`;
 
   // Detect Instagram / Facebook in-app browser
   const ua = navigator.userAgent || '';
