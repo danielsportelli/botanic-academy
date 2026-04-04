@@ -163,26 +163,6 @@ async function submitForm() {
     // 2. Manda mail di conferma all'utente
     await emailjs.send('service_9ng26ch', 'template_jhabtnq', templateParams, 'KE_Ia3bkUgnIJah4n');
 
-    // 3. Crea contatto su Systeme.io
-    try {
-      await fetch('https://api.systeme.io/api/contacts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': '9ivkdub27t5rpkw4erpp1uhhcj4bf3oo7d75kn6vrf7e8jpjka26e19by6dzs8n3'
-        },
-        body: JSON.stringify({
-          email: email,
-          firstName: name.split(' ')[0],
-          lastName: name.split(' ').slice(1).join(' ') || '',
-          fields: [{ slug: 'phone_number', value: phone }],
-          tags: [{ name: 'Form - da zero a barman in 30 ore' }]
-        })
-      });
-    } catch(e) {
-      console.warn('Systeme.io non raggiunto:', e);
-    }
-
     // 4. Mostra popup e svuota form
     openPopup();
     document.getElementById('fname').value = '';
