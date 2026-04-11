@@ -66,21 +66,21 @@ const CALENDARI = {
   corso1: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Mar 14 Aprile'],['Lez. 2','Gio 16 Aprile'],
-      ['Lez. 3','Mar 21 Aprile'],['Lez. 4','Gio 23 Aprile'],
-      ['Lez. 5','Mar 28 Aprile'],['Lez. 6','Gio 30 Maggio'],
-      ['Lez. 7','Mar 5 Maggio'],['Lez. 8','Gio 7 Maggio'],
-      ['Lez. 9','Mar 12 Maggio'],['Esame','Gio 14 Maggio'],
+      ['Lez. 1','Lun 27 Aprile'],['Lez. 2','Mer 28 Aprile'],
+      ['Lez. 3','Lun 4 Maggio'],['Lez. 4','Mer 6 Maggio'],
+      ['Lez. 5','Lun 11 Maggio'],['Lez. 6','Mer 13 Maggio'],
+      ['Lez. 7','Lun 18 Maggio'],['Lez. 8','Mer 20 Maggio'],
+      ['Lez. 9','Lun 25 Maggio'],['Esame','Mer 27 Maggio'],
     ]
   },
   corso2: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Mar 19 Maggio'],['Lez. 2','Gio 21 Maggio'],
-      ['Lez. 3','Mar 26 Maggio'],['Lez. 4','Gio 28 Maggio'],
-      ['Lez. 5','Mar 2 Giugno'],['Lez. 6','Gio 4 Giugno'],
-      ['Lez. 7','Mar 9 Giugno'],['Lez. 8','Gio 11 Giugno'],
-      ['Lez. 9','Mar 16 Giugno'],['Esame','Gio 18 Giugno'],
+      ['Lez. 1','Lun 6 Luglio'],['Lez. 2','Mer 8 Luglio'],
+      ['Lez. 3','Lun 13 Luglio'],['Lez. 4','Mer 15 Luglio'],
+      ['Lez. 5','Lun 20 Luglio'],['Lez. 6','Mer 22 Luglio'],
+      ['Lez. 7','Lun 27 Luglio'],['Lez. 8','Mer 29 Luglio'],
+      ['Lez. 9','Lun 3 Agosto'],['Esame','Mer 5 Agosto'],
     ]
   },
   corso3: {
