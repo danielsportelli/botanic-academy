@@ -66,11 +66,11 @@ const CALENDARI = {
   corso1: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Lun 27 Aprile'],['Lez. 2','Mer 28 Aprile'],
-      ['Lez. 3','Lun 4 Maggio'],['Lez. 4','Mer 6 Maggio'],
-      ['Lez. 5','Lun 11 Maggio'],['Lez. 6','Mer 13 Maggio'],
-      ['Lez. 7','Lun 18 Maggio'],['Lez. 8','Mer 20 Maggio'],
-      ['Lez. 9','Lun 25 Maggio'],['Esame','Mer 27 Maggio'],
+      ['Lez. 1','Mar 01 Settembre'],['Lez. 2','Ven 05 Settembre'],
+      ['Lez. 3','Mar 08 Settembre'],['Lez. 4','Ven 12 Settembre'],
+      ['Lez. 5','Mar 15 Settembre'],['Lez. 6','Ven 19 Settembre'],
+      ['Lez. 7','Mar 22 Settembre'],['Lez. 8','Ven 26 Settembre'],
+      ['Lez. 9','Mar 29 Settembre'],['Esame','Ven 03 Ottobre'],
     ]
   },
   corso2: {
