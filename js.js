@@ -102,7 +102,7 @@ function openCal(id) {
   grid.innerHTML = cal.lezioni.map(([label, date]) => {
     const isExam = label === 'Esame';
     const col1 = `<span style="font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;color:${isExam ? 'var(--gold)' : 'var(--cream-dim)'};">${label}</span>`;
-    const col2 = `<span style="font-size:.85rem;color:${isExam ? 'var(--gold)' : 'var(--cream)'};' · Giudici esterni' : ''}</span>`;
+    const col2 = `<span style="font-size:.85rem;color:${isExam ? 'var(--gold)' : 'var(--cream)'};">${date}${isExam ? ' · Giudici esterni' : ''}</span>`;
     return col1 + col2;
   }).join('');
   document.getElementById('calPopup').classList.add('active');
