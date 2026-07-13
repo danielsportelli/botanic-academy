@@ -255,6 +255,8 @@ section{padding:6rem 3rem;}
 .card-price-orig{font-size:.85rem;color:var(--cream-dim);text-decoration:line-through;}
 .card-price-tag{font-size:.58rem;letter-spacing:.1em;background:rgba(196,163,90,.12);color:var(--gold);padding:.2rem .5rem;text-transform:uppercase;}
 .card-note{font-size:.72rem;color:var(--cream-dim);margin-top:1rem;line-height:1.5;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.05);}
+.card-countdown{font-size:.74rem;color:var(--gold);background:rgba(196,163,90,.08);border:1px solid rgba(196,163,90,.2);padding:.55rem .9rem;margin-bottom:1.2rem;letter-spacing:.02em;}
+.card-countdown strong{color:var(--gold-light);font-weight:700;}
 
 /* ── PERCHÉ (teal) ── */
 .perche-grid{max-width:1200px;margin:3.5rem auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}

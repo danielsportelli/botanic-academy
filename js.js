@@ -1,6 +1,44 @@
 // ── Anno dinamico ──
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// ── Countdown prezzo di lancio ──
+// Unico valore da modificare quando cambia la data del corso: tutto il resto
+// (scadenza promo, giorni rimanenti, prezzo mostrato) si calcola da qui.
+(function() {
+  const COURSE_START_DATE = new Date('2026-09-01T00:00:00');
+  const PROMO_DAYS_BEFORE_START = 30;
+
+  const cutoff = new Date(COURSE_START_DATE);
+  cutoff.setDate(cutoff.getDate() - PROMO_DAYS_BEFORE_START);
+
+  const now = new Date();
+  const msPerDay = 1000 * 60 * 60 * 24;
+  const daysLeft = Math.ceil((cutoff - now) / msPerDay);
+
+  const priceMain = document.getElementById('cardPriceMain');
+  const priceOrig = document.getElementById('cardPriceOrig');
+  const priceTag = document.getElementById('cardPriceTag');
+  const countdownBox = document.getElementById('cardCountdown');
+  const countdownDays = document.getElementById('countdownDays');
+
+  if (!priceMain) return; // pagina senza card corso, esci silenziosamente
+
+  if (daysLeft > 0) {
+    // Promo di lancio ancora attiva
+    priceMain.textContent = '€490';
+    if (priceOrig) priceOrig.style.display = '';
+    if (priceTag) priceTag.style.display = '';
+    if (countdownDays) countdownDays.textContent = daysLeft;
+    if (countdownBox) countdownBox.style.display = '';
+  } else {
+    // Promo scaduta: prezzo pieno
+    priceMain.textContent = '€690';
+    if (priceOrig) priceOrig.style.display = 'none';
+    if (priceTag) priceTag.style.display = 'none';
+    if (countdownBox) countdownBox.style.display = 'none';
+  }
+})();
+
 // ── Nav background on scroll ──
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('nav');
@@ -180,7 +218,7 @@ async function submitForm() {
 
 // ── Chatbot FAQ ──
 const FAQ = {
-  "qual è il prezzo?": "Il corso ha un prezzo standard di €690. Per i primi 5 iscritti di ogni edizione è disponibile un'offerta di lancio a €490. Le date e i prezzi sono visibili nella sezione 'Corsi in partenza' qui sopra.",
+  "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se ti iscrivi entro 30 giorni dall'inizio del corso, il prezzo di lancio è €490. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
   "serve esperienza?": "No, il corso parte da zero. Non importa se non hai mai toccato uno shaker: si parte dalle basi e si arriva alle tecniche professionali. L'unica cosa che serve è voglia di imparare.",
   "dove si svolge?": "Il corso si svolge nella nostra aula dedicata in Corso Europa 27, ad Arcene (BG) — sopra il locale Botanic Fusion & Cocktail. L'aula è allestita con bancone principale, bottigliera, attrezzature professionali e postazioni individuali per ogni corsista.",
   "quando si parte?": "Il prossimo corso parte il 01 Settembre. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
