@@ -21,6 +21,10 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const countdownBox = document.getElementById('cardCountdown');
   const countdownDays = document.getElementById('countdownDays');
 
+  const promoLabel = document.getElementById('promoPillLabel');
+  const promoPrice = document.getElementById('promoPillPrice');
+  const promoOrig = document.getElementById('promoPillOrig');
+
   if (!priceMain) return; // pagina senza card corso, esci silenziosamente
 
   if (daysLeft > 0) {
@@ -30,12 +34,20 @@ document.getElementById('year').textContent = new Date().getFullYear();
     if (priceTag) priceTag.style.display = '';
     if (countdownDays) countdownDays.textContent = daysLeft;
     if (countdownBox) countdownBox.style.display = '';
+
+    if (promoLabel) promoLabel.textContent = 'Offerta di lancio · ancora ' + daysLeft + (daysLeft === 1 ? ' giorno' : ' giorni');
+    if (promoPrice) promoPrice.textContent = '€490';
+    if (promoOrig) promoOrig.style.display = '';
   } else {
     // Promo scaduta: prezzo pieno
     priceMain.textContent = '€690';
     if (priceOrig) priceOrig.style.display = 'none';
     if (priceTag) priceTag.style.display = 'none';
     if (countdownBox) countdownBox.style.display = 'none';
+
+    if (promoLabel) promoLabel.textContent = 'Prezzo del corso';
+    if (promoPrice) promoPrice.textContent = '€690';
+    if (promoOrig) promoOrig.style.display = 'none';
   }
 })();
 
