@@ -738,16 +738,26 @@ function showResult() {
 const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/42442696/subscription';
 
 // ── Scroll automatico al focus (fix per browser in-app tipo Instagram/Facebook) ──
-// Alcuni browser "in-app" non spostano la pagina per mostrare il campo sopra
-// la tastiera virtuale. Forziamo lo scroll manualmente, con un piccolo ritardo
-// per dare tempo alla tastiera di aprirsi.
+// In molti browser "in-app" lo scroll non basta perché la pagina finisce
+// subito dopo il form: non c'è spazio in cui scorrere. Aggiungiamo uno
+// spaziatore temporaneo sotto al form quando un campo prende il focus, così
+// c'è margine reale per portare il campo sopra la tastiera virtuale.
+const keyboardSpacer = document.createElement('div');
+keyboardSpacer.id = 'keyboardSpacer';
+keyboardSpacer.style.cssText = 'height:0;transition:height .2s;';
+document.body.appendChild(keyboardSpacer);
+
 ['leadName', 'leadEmail'].forEach(id => {
   const el = document.getElementById(id);
   if (el) {
     el.addEventListener('focus', () => {
+      keyboardSpacer.style.height = '60vh';
       setTimeout(() => {
         el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300);
+      }, 350);
+    });
+    el.addEventListener('blur', () => {
+      setTimeout(() => { keyboardSpacer.style.height = '0'; }, 200);
     });
   }
 });
