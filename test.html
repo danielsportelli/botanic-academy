@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sei pronto per il bancone? — Botanic Academy</title>
 <meta name="description" content="8 domande per scoprire a che punto sei nel tuo percorso da bartender. Nessun voto, nessun punteggio: solo chiarezza su dove sei oggi.">
 
@@ -66,6 +66,13 @@ body {
   align-items: center;
   justify-content: flex-start;
   padding: 2rem 1rem 4rem;
+  /* Safe area (notch, Dynamic Island, home indicator): il fallback sopra resta
+     valido sui browser che non supportano env(); qui lo aumentiamo se serve
+     più spazio per non finire sotto le zone del sistema. */
+  padding-top: max(2rem, calc(env(safe-area-inset-top) + 1rem));
+  padding-right: max(1rem, calc(env(safe-area-inset-right) + 1rem));
+  padding-bottom: max(4rem, calc(env(safe-area-inset-bottom) + 2rem));
+  padding-left: max(1rem, calc(env(safe-area-inset-left) + 1rem));
 }
 
 /* ── NOISE OVERLAY ── */
@@ -487,7 +494,7 @@ body::before {
   <div class="progress-wrap">
     <div class="progress-meta">
       <span class="progress-label">Avanzamento</span>
-      <span class="progress-counter" id="progress-counter">1 / 8</span>
+      <span class="progress-counter" id="progress-counter">1 / 10</span>
     </div>
     <div class="progress-track">
       <div class="progress-fill" id="progress-fill"></div>
@@ -515,23 +522,9 @@ body::before {
   <p class="result-desc" id="result-desc"></p>
 
   <div class="lead-card">
-    <form id="leadForm" class="lead-form" onsubmit="submitLead(event)">
-      <div class="lead-label">Guida gratuita</div>
-      <div class="lead-title">Ricevi subito la guida gratuita</div>
-      <div class="lead-desc">Abbiamo preparato la guida gratuita <strong style="color:var(--gold-light);font-weight:700;">"I 7 errori che ti impediscono di lavorare con sicurezza dietro al bancone"</strong>. Ti aiuterà a riconoscere gli errori più comuni e a capire come evitarli per lavorare con più sicurezza e metodo.</div>
-      <input type="text" class="lead-input" id="leadName" placeholder="Nome" autocomplete="name">
-      <input type="email" class="lead-input" id="leadEmail" placeholder="Email" autocomplete="email">
-      <label class="lead-consent">
-        <input type="checkbox" id="leadConsent">
-        <span>Sì, accetto di ricevere email da Botanic Academy.</span>
-      </label>
-      <span class="lead-error hidden" id="leadError">Inserisci nome, email e accetta di ricevere email per scaricare la guida.</span>
-      <button type="submit" class="btn-lead">Scarica la guida gratuita</button>
-    </form>
-    <div class="lead-thanks" id="leadThanks">
-      <div class="lead-thanks-title">Fatto!</div>
-      <div class="lead-thanks-desc">Riceverai a breve una email con la guida da scaricare. Controlla anche nello spam.</div>
-    </div>
+    <div class="lead-label">Guida gratuita</div>
+    <div class="lead-title">Controlla la tua email</div>
+    <div class="lead-desc">Ti abbiamo inviato la guida gratuita <strong style="color:var(--gold-light);font-weight:700;">"I 7 errori che ti impediscono di lavorare con sicurezza dietro al bancone"</strong>. Arriverà a breve nella tua casella di posta — controlla anche nello spam.</div>
   </div>
 
   <div style="height: 2rem;"></div>
@@ -622,8 +615,35 @@ const questions = [
   }
 ];
 
+const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/42442696/subscription';
+const TOTAL_STEPS = questions.length + 2; // 8 domande + step nome + step email
+
 let current = 0;
 const selectedAnswers = new Array(questions.length).fill(null);
+let leadName = '';
+let leadEmail = '';
+let leadConsent = false;
+
+// ── Fix tastiera per browser in-app (Instagram/Facebook) ──
+// In molti browser "in-app" lo scroll non basta perché la pagina finisce
+// subito dopo il campo: non c'è spazio in cui scorrere. Aggiungiamo uno
+// spaziatore temporaneo sotto al contenuto quando un campo prende il focus.
+const keyboardSpacer = document.createElement('div');
+keyboardSpacer.id = 'keyboardSpacer';
+keyboardSpacer.style.cssText = 'height:0;transition:height .2s;';
+document.body.appendChild(keyboardSpacer);
+
+function attachKeyboardFix(el) {
+  el.addEventListener('focus', () => {
+    keyboardSpacer.style.height = '60vh';
+    setTimeout(() => {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 350);
+  });
+  el.addEventListener('blur', () => {
+    setTimeout(() => { keyboardSpacer.style.height = '0'; }, 200);
+  });
+}
 
 function startQuiz() {
   document.getElementById('screen-intro').classList.add('hidden');
@@ -633,33 +653,73 @@ function startQuiz() {
 }
 
 function renderQuestion() {
-  const q = questions[current];
-  const total = questions.length;
-
-  // Progress
-  const pct = (current / total) * 100;
+  // Progress (comune a tutti gli step, domande + nome + email)
+  const pct = (current / TOTAL_STEPS) * 100;
   document.getElementById('progress-fill').style.width = pct + '%';
-  document.getElementById('progress-counter').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('progress-counter').textContent = (current + 1) + ' / ' + TOTAL_STEPS;
   document.getElementById('question-num').textContent = 'Domanda ' + String(current + 1).padStart(2, '0');
-  document.getElementById('question-text').innerHTML = q.q;
 
-  // Options
   const wrap = document.getElementById('options-wrap');
   wrap.innerHTML = '';
-  const keys = ['A', 'B', 'C', 'D'];
-  q.opts.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    if (selectedAnswers[current] === i) btn.classList.add('selected');
-    btn.innerHTML = `<span class="option-key">${keys[i]}</span><span>${opt}</span>`;
-    btn.onclick = () => selectAnswer(i);
-    wrap.appendChild(btn);
-  });
+  const btnNext = document.getElementById('btnNext');
 
-  // Nav buttons
+  if (current < questions.length) {
+    // ── Domanda a risposta multipla ──
+    const q = questions[current];
+    document.getElementById('question-text').innerHTML = q.q;
+    const keys = ['A', 'B', 'C', 'D'];
+    q.opts.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn';
+      if (selectedAnswers[current] === i) btn.classList.add('selected');
+      btn.innerHTML = `<span class="option-key">${keys[i]}</span><span>${opt}</span>`;
+      btn.onclick = () => selectAnswer(i);
+      wrap.appendChild(btn);
+    });
+    btnNext.disabled = (selectedAnswers[current] === null);
+    btnNext.textContent = 'Avanti →';
+
+  } else if (current === questions.length) {
+    // ── Step: nome ──
+    document.getElementById('question-text').innerHTML = 'Come ti chiami?';
+    const safeName = leadName.replace(/"/g, '&quot;');
+    wrap.innerHTML = `<input type="text" class="lead-input" id="leadNameInput" placeholder="Il tuo nome" autocomplete="name" value="${safeName}">`;
+    const input = document.getElementById('leadNameInput');
+    attachKeyboardFix(input);
+    input.addEventListener('input', () => {
+      leadName = input.value.trim();
+      btnNext.disabled = !leadName;
+    });
+    btnNext.disabled = !leadName;
+    btnNext.textContent = 'Avanti →';
+
+  } else {
+    // ── Step: email + consenso (ultimo step) ──
+    document.getElementById('question-text').innerHTML = 'Qual è la tua email?';
+    const safeEmail = leadEmail.replace(/"/g, '&quot;');
+    wrap.innerHTML = `
+      <input type="email" class="lead-input" id="leadEmailInput" placeholder="La tua email" autocomplete="email" value="${safeEmail}">
+      <label class="lead-consent" style="margin-top:.9rem;">
+        <input type="checkbox" id="leadConsentInput" ${leadConsent ? 'checked' : ''}>
+        <span>Sì, accetto di ricevere email da Botanic Academy.</span>
+      </label>
+    `;
+    const emailInput = document.getElementById('leadEmailInput');
+    const consentInput = document.getElementById('leadConsentInput');
+    attachKeyboardFix(emailInput);
+
+    function checkValid() {
+      leadEmail = emailInput.value.trim();
+      leadConsent = consentInput.checked;
+      btnNext.disabled = !(leadEmail.includes('@') && leadConsent);
+    }
+    emailInput.addEventListener('input', checkValid);
+    consentInput.addEventListener('change', checkValid);
+    checkValid();
+    btnNext.textContent = 'Scopri il risultato →';
+  }
+
   document.getElementById('btnBack').disabled = (current === 0);
-  document.getElementById('btnNext').disabled = (selectedAnswers[current] === null);
-  document.getElementById('btnNext').textContent = (current === total - 1) ? 'Vedi risultato →' : 'Avanti →';
 }
 
 function selectAnswer(idx) {
@@ -674,10 +734,14 @@ function selectAnswer(idx) {
 }
 
 function goNext() {
-  if (selectedAnswers[current] === null) return;
+  // Guardia di validazione in base al tipo di step corrente
+  if (current < questions.length && selectedAnswers[current] === null) return;
+  if (current === questions.length && !leadName) return;
+  if (current === questions.length + 1 && !(leadEmail.includes('@') && leadConsent)) return;
+
   current++;
-  if (current >= questions.length) {
-    showResult();
+  if (current >= TOTAL_STEPS) {
+    finishAndShowResult();
   } else {
     document.getElementById('screen-quiz').classList.add('hidden');
     setTimeout(() => {
@@ -697,11 +761,10 @@ function goBack() {
   }, 120);
 }
 
-function showResult() {
+function finishAndShowResult() {
   document.getElementById('screen-quiz').classList.add('hidden');
   document.querySelector('.logo').style.display = 'none';
-  const rs = document.getElementById('screen-result');
-  rs.classList.remove('hidden');
+  document.getElementById('screen-result').classList.remove('hidden');
 
   // Punteggio totale (max 11) — usato solo internamente per scegliere il profilo, mai mostrato
   let totalScore = 0;
@@ -729,57 +792,11 @@ function showResult() {
 
   document.getElementById('result-title').innerHTML = title;
   document.getElementById('result-desc').innerHTML = desc;
-}
 
-// ── Lead form ──
-// Collegato a systeme.io: modulo incorporato (step "Form contatti" nel funnel
-// "Contatti che vogliono la guida gratuita"). Invio in background via fetch,
-// senza far navigare l'utente fuori da questa pagina.
-const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/42442696/subscription';
-
-// ── Scroll automatico al focus (fix per browser in-app tipo Instagram/Facebook) ──
-// In molti browser "in-app" lo scroll non basta perché la pagina finisce
-// subito dopo il form: non c'è spazio in cui scorrere. Aggiungiamo uno
-// spaziatore temporaneo sotto al form quando un campo prende il focus, così
-// c'è margine reale per portare il campo sopra la tastiera virtuale.
-const keyboardSpacer = document.createElement('div');
-keyboardSpacer.id = 'keyboardSpacer';
-keyboardSpacer.style.cssText = 'height:0;transition:height .2s;';
-document.body.appendChild(keyboardSpacer);
-
-['leadName', 'leadEmail'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.addEventListener('focus', () => {
-      keyboardSpacer.style.height = '60vh';
-      setTimeout(() => {
-        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 350);
-    });
-    el.addEventListener('blur', () => {
-      setTimeout(() => { keyboardSpacer.style.height = '0'; }, 200);
-    });
-  }
-});
-
-function submitLead(event) {
-  event.preventDefault();
-  const name = document.getElementById('leadName').value.trim();
-  const email = document.getElementById('leadEmail').value.trim();
-  const consent = document.getElementById('leadConsent').checked;
-  const errorEl = document.getElementById('leadError');
-
-  if (!name || !email || !email.includes('@') || !consent) {
-    errorEl.classList.remove('hidden');
-    return;
-  }
-  errorEl.classList.add('hidden');
-
-  const btn = document.querySelector('#leadForm button[type="submit"]');
-  if (btn) { btn.disabled = true; }
-
-  const body = new URLSearchParams({ first_name: name, email: email });
-
+  // Invio a systeme.io in background (modulo incorporato, step "Form contatti"
+  // del funnel "Contatti che vogliono la guida gratuita"). Nome ed email sono
+  // già stati raccolti negli step precedenti del test.
+  const body = new URLSearchParams({ first_name: leadName, email: leadEmail });
   fetch(SYSTEME_IO_ENDPOINT, {
     method: 'POST',
     mode: 'no-cors', // richiesta cross-domain "fire and forget": non possiamo leggere la risposta, solo inviarla
@@ -787,9 +804,6 @@ function submitLead(event) {
     body: body
   }).catch(err => {
     console.error('Errore invio a systeme.io:', err);
-  }).finally(() => {
-    document.getElementById('leadForm').classList.add('hidden');
-    document.getElementById('leadThanks').classList.add('show');
   });
 }
 </script>
