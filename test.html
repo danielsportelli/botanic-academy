@@ -357,7 +357,7 @@ body::before {
   border-radius: 4px;
   padding: 2rem 2.2rem;
   margin-bottom: 1.5rem;
-  text-align: left;
+  text-align: center;
 }
 .lead-label {
   font-size: .58rem; letter-spacing: .4em;
@@ -523,8 +523,9 @@ body::before {
 
   <div class="lead-card">
     <div class="lead-label">Guida gratuita</div>
-    <div class="lead-title">Controlla la tua email</div>
-    <div class="lead-desc">Ti abbiamo inviato la guida gratuita <strong style="color:var(--gold-light);font-weight:700;">"I 7 errori che ti impediscono di lavorare con sicurezza dietro al bancone"</strong>. Arriverà a breve nella tua casella di posta — controlla anche nello spam.</div>
+    <div class="lead-title">Scarica ora la tua guida</div>
+    <div class="lead-desc">In base alle tue risposte, ecco la guida gratuita <strong style="color:var(--gold-light);font-weight:700;">"I 7 errori che ti impediscono di lavorare con sicurezza dietro al bancone"</strong>. Scaricala subito qui sotto.</div>
+    <a class="btn-start" href="guida-7-errori-bancone.pdf" download style="display:inline-block;text-decoration:none;text-align:center;">Scarica ora la guida gratuita</a>
   </div>
 
   <div style="height: 2rem;"></div>
@@ -615,7 +616,7 @@ const questions = [
   }
 ];
 
-const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/42442696/subscription';
+const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/43764197/subscription';
 const TOTAL_STEPS = questions.length + 2; // 8 domande + step nome + step email
 
 let current = 0;
