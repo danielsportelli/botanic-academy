@@ -152,7 +152,7 @@ document.getElementById('calPopup').addEventListener('click', function(e) {
 
 // ── CRM (Google Sheet) ──
 // URL /exec dello script crm/apps-script.gs. Finché è vuoto il salvataggio è disattivato.
-const CRM_ENDPOINT = '';
+const CRM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyMZJO0SGROjXhJ7kkqPbcOqsDuJD0S3XEwveT9GX6-xRhGrNhx39gAetEIlS3mBq50/exec';
 function saveToCRM(fields) {
   if (!CRM_ENDPOINT) return;
   fetch(CRM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fields) })
