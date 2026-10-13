@@ -25,7 +25,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
   if (daysLeft > 0) {
     // Prezzo promo ancora attivo
-    priceMain.textContent = '€490';
+    priceMain.textContent = '€550';
     if (priceOrig) priceOrig.style.display = '';
     if (priceTag) priceTag.style.display = '';
     if (countdownDays) countdownDays.textContent = daysLeft;
@@ -104,11 +104,11 @@ const CALENDARI = {
   corso1: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Lun 09 Novembre'],['Lez. 2','Mar 10 Novembre'],
-      ['Lez. 3','Lun 16 Novembre'],['Lez. 4','Mar 17 Novembre'],
-      ['Lez. 5','Lun 23 Novembre'],['Lez. 6','Mar 24 Novembre'],
-      ['Lez. 7','Lun 30 Novembre'],['Lez. 8','Mar 01 Dicembre'],
-      ['Lez. 9','Lun 14 Dicembre'],['Esame','Mar 15 Dicembre'],
+      ['Lez. 1','Lun 09 Novembre'],['Lez. 2','Mer 11 Novembre'],
+      ['Lez. 3','Lun 16 Novembre'],['Lez. 4','Mer 18 Novembre'],
+      ['Lez. 5','Mer 25 Novembre'],['Lez. 6','Lun 30 Novembre'],
+      ['Lez. 7','Mer 02 Dicembre'],['Lez. 8','Mer 09 Dicembre'],
+      ['Lez. 9','Lun 14 Dicembre'],['Esame','Mer 16 Dicembre'],
     ]
   },
   corso2: {
@@ -149,6 +149,15 @@ function closeCal() { document.getElementById('calPopup').classList.remove('acti
 document.getElementById('calPopup').addEventListener('click', function(e) {
   if (e.target === this) closeCal();
 });
+
+// ── CRM (Google Sheet) ──
+// URL /exec dello script crm/apps-script.gs. Finché è vuoto il salvataggio è disattivato.
+const CRM_ENDPOINT = '';
+function saveToCRM(fields) {
+  if (!CRM_ENDPOINT) return;
+  fetch(CRM_ENDPOINT, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(fields) })
+    .catch(err => console.error('Errore salvataggio contatto:', err));
+}
 
 // ── Form validation ──
 function clearErrors() { document.querySelectorAll('.form-error').forEach(e => e.remove()); }
@@ -201,6 +210,9 @@ async function submitForm() {
     // 2. Manda mail di conferma all'utente
     await emailjs.send('service_9ng26ch', 'template_jhabtnq', templateParams, 'KE_Ia3bkUgnIJah4n');
 
+    // 3. Salva il contatto nel CRM
+    saveToCRM({ fonte: 'Form contatti', nome: name, email: email, telefono: phone, interesse: corso, note: msg });
+
     // 4. Mostra popup e svuota form
     openPopup();
     document.getElementById('fname').value = '';
@@ -218,16 +230,17 @@ async function submitForm() {
 
 // ── Chatbot FAQ ──
 const FAQ = {
-  "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se ti iscrivi entro 30 giorni dall'inizio del corso, il prezzo promo è €490. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
+  "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se ti iscrivi entro 30 giorni dall'inizio del corso, il prezzo promo è €550. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
   "serve esperienza?": "No, il corso parte da zero. Non importa se non hai mai toccato uno shaker: si parte dalle basi e si arriva alle tecniche professionali. L'unica cosa che serve è voglia di imparare.",
   "dove si svolge?": "Il corso si svolge nella nostra aula dedicata in Corso Europa 27, ad Arcene (BG) — sopra il locale Botanic Fusion & Cocktail. L'aula è allestita con bancone principale, bottigliera, attrezzature professionali e postazioni individuali per ogni corsista.",
-  "quando si parte?": "Il prossimo corso parte il 09 Novembre, con lezioni il lunedì e il martedì dalle 19:30 alle 22:30. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
+  "quando si parte?": "Il prossimo corso parte il 09 Novembre, con lezioni il lunedì e il mercoledì dalle 19:30 alle 22:30. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
   "come funziona la prenotazione?": "Per bloccare il posto basta un acconto di €50, tramite bonifico o PayPal. Il saldo lo dai alla prima lezione. Se il corso non dovesse partire per numero minimo non raggiunto, l'acconto ti viene rimborsato per intero oppure spostato all'edizione successiva, come preferisci.",
   "che attestato rilasciate?": "Al termine del corso viene rilasciato un attestato di frequenza ufficiale che certifica tutte le competenze, le tecniche e le nozioni apprese durante il percorso.",
   "come funziona l'esame?": "L'ultima lezione è dedicata all'esame finale con giudici esterni. Prevede una parte scritta e una pratica, su tutti gli argomenti del corso. In caso di esito non positivo, puoi ripeterlo gratuitamente.",
   "posso lavorare dopo?": "Sì, il corso è pensato per renderti operativo subito. Potrai lavorare in cocktail bar, discoteche, eventi, beach club, hotel. Offriamo anche supporto per stage e segnalazioni lavorative tramite la nostra rete di contatti.",
   "cosa è incluso?": "Nel prezzo è incluso tutto: uso delle attrezzature professionali, ingredienti reali per le prove pratiche, dispensa, block notes, penna, esame finale e attestato. Non devi portare nulla.",
   "quante persone ci sono?": "Il corso è a numero chiuso: massimo 10 partecipanti per edizione. Questo garantisce attenzione personalizzata da parte del docente e un apprendimento più efficace.",
+  "cos'è la botanic experience?": "È un pomeriggio di 4 ore in Academy dove prepari il tuo sushi e il tuo cocktail con me e con lo chef. Costa €97, max 10 posti. Trovi date e dettagli nella pagina dedicata: botanicacademy.it/experience.html",
   "usate ingredienti veri?": "Assolutamente sì. Da noi i cocktail si preparano con ingredienti veri — si assaggiano, si capisce come devono essere e come si presentano. Niente acqua colorata. Solo per le esercitazioni di tecnica pura utilizziamo l'acqua, ma tutti i 70+ cocktail del programma si fanno davvero.",
   "che metodi di pagamento accettate?": "Accettiamo pagamento in contanti, bonifico bancario e PayPal. Con PayPal hai anche la possibilità di pagare in 3 rate senza interessi, direttamente dalla piattaforma.",
   "il certificato ha valore?": "Domanda giusta e frequente. Il nostro attestato certifica ufficialmente la frequenza del corso e le competenze acquisite — ed è questo che i datori di lavoro nel settore riconoscono. È bene sapere che nessuna scuola privata in Italia rilascia certificati 'riconosciuti' in senso legale: quel tipo di riconoscimento riguarda gli enti accreditati dalla Regione per corsi con fondi pubblici. Chi usa il termine 'certificato riconosciuto' spesso lo fa in modo ambiguo. Quello che conta davvero è la qualità della formazione ricevuta e l'esperienza pratica acquisita — elementi che il nostro percorso garantisce pienamente."

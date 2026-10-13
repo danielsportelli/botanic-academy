@@ -616,7 +616,9 @@ const questions = [
   }
 ];
 
-const SYSTEME_IO_ENDPOINT = 'https://systeme.io/embedded/43764197/subscription';
+// Web app Google Apps Script che scrive nel foglio "CRM Botanic Academy" (vedi crm/apps-script.gs).
+// Incolla qui l'URL /exec dopo la distribuzione dello script.
+const CRM_ENDPOINT = '';
 const TOTAL_STEPS = questions.length + 2; // 8 domande + step nome + step email
 
 let current = 0;
@@ -797,18 +799,25 @@ function finishAndShowResult() {
   document.getElementById('result-title').innerHTML = title;
   document.getElementById('result-desc').innerHTML = desc;
 
-  // Invio a systeme.io in background (modulo incorporato, step "Form contatti"
-  // del funnel "Contatti che vogliono la guida gratuita"). Nome ed email sono
-  // già stati raccolti negli step precedenti del test.
-  const body = new URLSearchParams({ first_name: leadName, email: leadEmail });
-  fetch(SYSTEME_IO_ENDPOINT, {
-    method: 'POST',
-    mode: 'no-cors', // richiesta cross-domain "fire and forget": non possiamo leggere la risposta, solo inviarla
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: body
-  }).catch(err => {
-    console.error('Errore invio a systeme.io:', err);
-  });
+  // Salva il contatto nel CRM (Google Sheet) in background. Nome ed email
+  // sono già stati raccolti negli step precedenti del test. Il download della
+  // guida non dipende da questo invio.
+  if (CRM_ENDPOINT) {
+    const body = new URLSearchParams({
+      fonte: 'Quiz',
+      nome: leadName,
+      email: leadEmail,
+      interesse: 'Guida 7 errori al bancone',
+      note: 'Punteggio quiz: ' + totalScore
+    });
+    fetch(CRM_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors', // richiesta cross-domain "fire and forget": non possiamo leggere la risposta, solo inviarla
+      body: body
+    }).catch(err => {
+      console.error('Errore salvataggio contatto:', err);
+    });
+  }
 }
 </script>
 </body>
