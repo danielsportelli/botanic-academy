@@ -277,6 +277,8 @@
 // Etichetta salvata nel CRM e nelle email. Aggiornare insieme alla data in pagina.
 const EXPERIENCE_LABEL = 'Botanic Experience — Lunedì 23 Novembre';
 // URL /exec dello script crm/apps-script.gs. Finché è vuoto il salvataggio nel CRM è disattivato.
+// Template EmailJS della mail di conferma al cliente (per l'experience va usato un template dedicato).
+const CONFIRM_TEMPLATE_ID = 'template_jhabtnq';
 const CRM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyMZJO0SGROjXhJ7kkqPbcOqsDuJD0S3XEwveT9GX6-xRhGrNhx39gAetEIlS3mBq50/exec';
 
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -377,6 +379,8 @@ async function submitBooking() {
     phone: phone,
     corso: EXPERIENCE_LABEL,
     message: message,
+    posti: seats + (seats === '1' ? ' posto' : ' posti'),
+    note: note || 'Nessuna nota',
     reply_to: email
   };
 
@@ -384,7 +388,7 @@ async function submitBooking() {
     // 1. Mail di notifica a Daniel
     await emailjs.send('service_9ng26ch', 'template_0kfjauv', templateParams, 'KE_Ia3bkUgnIJah4n');
     // 2. Mail di conferma all'utente
-    await emailjs.send('service_9ng26ch', 'template_jhabtnq', templateParams, 'KE_Ia3bkUgnIJah4n');
+    await emailjs.send('service_9ng26ch', CONFIRM_TEMPLATE_ID, templateParams, 'KE_Ia3bkUgnIJah4n');
     // 3. Salvataggio nel CRM
     if (CRM_ENDPOINT) {
       fetch(CRM_ENDPOINT, {
