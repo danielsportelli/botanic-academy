@@ -277,8 +277,7 @@
 // Etichetta salvata nel CRM e nelle email. Aggiornare insieme alla data in pagina.
 const EXPERIENCE_LABEL = 'Botanic Experience — Lunedì 23 Novembre';
 // URL /exec dello script crm/apps-script.gs. Finché è vuoto il salvataggio nel CRM è disattivato.
-// Template EmailJS della mail di conferma al cliente (per l'experience va usato un template dedicato).
-// Template EmailJS della mail di notifica a noi (per l'experience va usato un template dedicato).
+// Template EmailJS condivisi con il modulo del corso: notifica a noi e conferma al cliente.
 const NOTIFY_TEMPLATE_ID = 'template_0kfjauv';
 const CONFIRM_TEMPLATE_ID = 'template_jhabtnq';
 const CRM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyMZJO0SGROjXhJ7kkqPbcOqsDuJD0S3XEwveT9GX6-xRhGrNhx39gAetEIlS3mBq50/exec';
@@ -380,10 +379,13 @@ async function submitBooking() {
     from_email: email,
     phone: phone,
     corso: EXPERIENCE_LABEL,
-    message: message,
     posti: seats + (seats === '1' ? ' posto' : ' posti'),
     note: note || 'Nessuna nota',
-    reply_to: email
+    reply_to: email,
+    // Oggetti e testo introduttivo delle mail (i template EmailJS sono condivisi con il modulo del corso)
+    notifica_oggetto: 'Nuova prenotazione Experience – ' + name,
+    conferma_oggetto: 'Conferma prenotazione – Botanic Experience',
+    conferma_intro: 'abbiamo ricevuto la tua richiesta di prenotazione e ti contatteremo al più presto.'
   };
 
   try {

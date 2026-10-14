@@ -200,7 +200,11 @@ async function submitForm() {
     phone: phone,
     corso: corso,
     message: msg,
-    reply_to: email
+    reply_to: email,
+    // Oggetti e testo introduttivo delle mail (i template EmailJS sono condivisi con la pagina experience)
+    notifica_oggetto: 'Nuovo messaggio da ' + name,
+    conferma_oggetto: 'Conferma ricezione messaggio',
+    conferma_intro: 'abbiamo ricevuto il tuo messaggio e ti risponderemo personalmente al più presto.'
   };
 
   try {
