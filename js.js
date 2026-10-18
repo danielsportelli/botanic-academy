@@ -285,3 +285,19 @@ function sendFAQ(btn) {
     appendMsg('bot', answer);
   }, 500);
 }
+
+// ── Mappa di Google: caricata solo al clic (Google può installare propri cookie) ──
+(function () {
+  var box = document.getElementById('map-box'), btn = document.getElementById('map-load');
+  if (!box || !btn) return;
+  btn.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.className = 'map-frame';
+    f.src = box.getAttribute('data-src');
+    f.style.border = '0';
+    f.setAttribute('allowfullscreen', '');
+    f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    f.setAttribute('title', 'Mappa: Corso Europa 27, Arcene (BG)');
+    box.replaceWith(f);
+  });
+})();
