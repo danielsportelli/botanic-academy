@@ -5,7 +5,7 @@ document.getElementById('year').textContent = new Date().getFullYear();
 // Unico valore da modificare quando cambia la data del corso: tutto il resto
 // (scadenza promo, giorni rimanenti, prezzo mostrato) si calcola da qui.
 (function() {
-  const COURSE_START_DATE = new Date('2026-11-09T00:00:00');
+  const COURSE_START_DATE = new Date('2027-01-12T00:00:00');
   const PROMO_DAYS_BEFORE_START = 30;
 
   const cutoff = new Date(COURSE_START_DATE);
@@ -104,11 +104,11 @@ const CALENDARI = {
   corso1: {
     title: 'Calendario',
     lezioni: [
-      ['Lez. 1','Lun 09 Novembre'],['Lez. 2','Mer 11 Novembre'],
-      ['Lez. 3','Lun 16 Novembre'],['Lez. 4','Mer 18 Novembre'],
-      ['Lez. 5','Mer 25 Novembre'],['Lez. 6','Lun 30 Novembre'],
-      ['Lez. 7','Mer 02 Dicembre'],['Lez. 8','Mer 09 Dicembre'],
-      ['Lez. 9','Lun 14 Dicembre'],['Esame','Mer 16 Dicembre'],
+      ['Lez. 1','Mar 12 Gennaio'],['Lez. 2','Gio 14 Gennaio'],
+      ['Lez. 3','Mar 19 Gennaio'],['Lez. 4','Gio 21 Gennaio'],
+      ['Lez. 5','Mar 26 Gennaio'],['Lez. 6','Gio 28 Gennaio'],
+      ['Lez. 7','Mar 02 Febbraio'],['Lez. 8','Gio 04 Febbraio'],
+      ['Lez. 9','Mar 09 Febbraio'],['Esame','Gio 11 Febbraio'],
     ]
   },
   corso2: {
@@ -237,7 +237,7 @@ const FAQ = {
   "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se ti iscrivi entro 30 giorni dall'inizio del corso, il prezzo promo è €550. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
   "serve esperienza?": "No, il corso parte da zero. Non importa se non hai mai toccato uno shaker: si parte dalle basi e si arriva alle tecniche professionali. L'unica cosa che serve è voglia di imparare.",
   "dove si svolge?": "Il corso si svolge nella nostra aula dedicata in Corso Europa 27, ad Arcene (BG) — sopra il locale Botanic Fusion & Cocktail. L'aula è allestita con bancone principale, bottigliera, attrezzature professionali e postazioni individuali per ogni corsista.",
-  "quando si parte?": "Il prossimo corso parte il 09 Novembre, con lezioni il lunedì e il mercoledì dalle 19:30 alle 22:30. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
+  "quando si parte?": "Il prossimo corso parte il 12 Gennaio, con lezioni il martedì e il giovedì dalle 19:30 alle 22:30. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
   "come funziona la prenotazione?": "Per bloccare il posto basta un acconto di €50, tramite bonifico o PayPal. Il saldo lo dai alla prima lezione. Se il corso non dovesse partire per numero minimo non raggiunto, l'acconto ti viene rimborsato per intero oppure spostato all'edizione successiva, come preferisci.",
   "che attestato rilasciate?": "Al termine del corso viene rilasciato un attestato di frequenza ufficiale che certifica tutte le competenze, le tecniche e le nozioni apprese durante il percorso.",
   "come funziona l'esame?": "L'ultima lezione è dedicata all'esame finale con giudici esterni. Prevede una parte scritta e una pratica, su tutti gli argomenti del corso. In caso di esito non positivo, puoi ripeterlo gratuitamente.",
