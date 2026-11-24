@@ -26,6 +26,9 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const priceTag = document.getElementById('cardPriceTag');
   const countdownBox = document.getElementById('cardCountdown');
   const countdownDays = document.getElementById('countdownDays');
+  const cardCta = document.getElementById('cardCta');
+  const promoNote = document.getElementById('promoNote');
+  const depositNote = document.getElementById('depositNote');
 
   if (!priceMain) return; // pagina senza card corso, esci silenziosamente
 
@@ -36,12 +39,17 @@ document.getElementById('year').textContent = new Date().getFullYear();
     if (priceTag) priceTag.style.display = '';
     if (countdownDays) countdownDays.textContent = daysLeft;
     if (countdownBox) countdownBox.style.display = '';
+    if (cardCta) cardCta.textContent = 'Blocca la promo';
+    if (depositNote) depositNote.textContent = 'Blocca la promo con un acconto di €100, saldo alla prima lezione.';
   } else {
     // Scaduto: prezzo pieno
     priceMain.textContent = '€690';
     if (priceOrig) priceOrig.style.display = 'none';
     if (priceTag) priceTag.style.display = 'none';
     if (countdownBox) countdownBox.style.display = 'none';
+    if (cardCta) cardCta.textContent = 'Blocca il posto';
+    if (promoNote) promoNote.textContent = 'Prezzo pieno €690.';
+    if (depositNote) depositNote.textContent = 'Blocca il posto con un acconto di €100, saldo alla prima lezione.';
   }
 })();
 
