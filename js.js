@@ -15,6 +15,12 @@ document.getElementById('year').textContent = new Date().getFullYear();
   const msPerDay = 1000 * 60 * 60 * 24;
   const daysLeft = Math.ceil((cutoff - now) / msPerDay);
 
+  // Ultimo giorno utile per la promo, mostrato nella nota della card
+  const lastPromoDay = new Date(cutoff);
+  lastPromoDay.setDate(lastPromoDay.getDate() - 1);
+  const deadlineEl = document.getElementById('promoDeadline');
+  if (deadlineEl) deadlineEl.textContent = 'entro il ' + lastPromoDay.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
+
   const priceMain = document.getElementById('cardPriceMain');
   const priceOrig = document.getElementById('cardPriceOrig');
   const priceTag = document.getElementById('cardPriceTag');
@@ -234,11 +240,11 @@ async function submitForm() {
 
 // ── Chatbot FAQ ──
 const FAQ = {
-  "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se ti iscrivi entro 30 giorni dall'inizio del corso, il prezzo promo è €550. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
+  "qual è il prezzo?": "Il corso ha un prezzo pieno di €690. Se versi l'acconto entro 30 giorni dall'inizio del corso, il prezzo promo è €550. Le date e il prezzo aggiornato sono visibili nella sezione 'Corsi in partenza' qui sopra.",
   "serve esperienza?": "No, il corso parte da zero. Non importa se non hai mai toccato uno shaker: si parte dalle basi e si arriva alle tecniche professionali. L'unica cosa che serve è voglia di imparare.",
   "dove si svolge?": "Il corso si svolge nella nostra aula dedicata in Corso Europa 27, ad Arcene (BG) — sopra il locale Botanic Fusion & Cocktail. L'aula è allestita con bancone principale, bottigliera, attrezzature professionali e postazioni individuali per ogni corsista.",
   "quando si parte?": "Il prossimo corso parte il 12 Gennaio, con lezioni il martedì e il giovedì dalle 19:00 alle 22:00. Al momento organizziamo un corso alla volta per garantire la massima attenzione a ogni corsista, e parte al raggiungimento di minimo 5 iscritti. Per le date precise di ogni lezione clicca 'Vedi calendario completo' sulla card qui sopra.",
-  "come funziona la prenotazione?": "Per bloccare il posto basta un acconto di €50, tramite bonifico o PayPal. Il saldo lo dai alla prima lezione. Se il corso non dovesse partire per numero minimo non raggiunto, l'acconto ti viene rimborsato per intero oppure spostato all'edizione successiva, come preferisci.",
+  "come funziona la prenotazione?": "Per bloccare il posto (e il prezzo promo, se sei nei tempi) basta un acconto di €100, tramite bonifico o PayPal. Il saldo lo dai alla prima lezione. Se il corso non dovesse partire per numero minimo non raggiunto, l'acconto ti viene rimborsato per intero oppure spostato all'edizione successiva, come preferisci.",
   "che attestato rilasciate?": "Al termine del corso viene rilasciato un attestato di frequenza ufficiale che certifica tutte le competenze, le tecniche e le nozioni apprese durante il percorso.",
   "come funziona l'esame?": "L'ultima lezione è dedicata all'esame finale con giudici esterni. Prevede una parte scritta e una pratica, su tutti gli argomenti del corso. In caso di esito non positivo, puoi ripeterlo gratuitamente.",
   "posso lavorare dopo?": "Sì, il corso è pensato per renderti operativo subito. Potrai lavorare in cocktail bar, discoteche, eventi, beach club, hotel. Offriamo anche supporto per stage e segnalazioni lavorative tramite la nostra rete di contatti.",
